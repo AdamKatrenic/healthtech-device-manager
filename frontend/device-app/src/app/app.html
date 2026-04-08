@@ -1,0 +1,15 @@
+<div style="padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <h1 style="color: #007680;">Siemens Healthineers Device Manager</h1>
+  <p>Zoznam pripojených medicínskych zariadení:</p>
+  
+  <div *ngFor="let d of devices" style="border-left: 5px solid #007680; background: #f4f4f4; margin: 10px 0; padding: 15px; border-radius: 4px;">
+    <strong>{{ d.name }}</strong> <small>({{ d.serialNumber }})</small>
+    <br>
+    Model: {{ d.modelName }} | 
+    Status: <span [style.color]="d.status === 'ONLINE' ? 'green' : 'orange'">{{ d.status }}</span>
+  </div>
+
+  <div *ngIf="devices.length === 0">
+    Načítavam dáta alebo backend nie je spustený...
+  </div>
+</div>
