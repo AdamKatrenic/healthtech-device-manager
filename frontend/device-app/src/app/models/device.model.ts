@@ -1,5 +1,5 @@
 export interface Device {
-  id?: number;
+  id?: number; 
   name: string;
   modelName: string;
   serialNumber: string;
