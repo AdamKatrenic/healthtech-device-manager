@@ -40,7 +40,10 @@ export class AppComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'modelName', 'serialNumber', 'status', 'actions'];
   isLoading = false; // Presunuté dovnútra triedy
 
-  constructor(private deviceService: DeviceService, private dialog: MatDialog) {}
+  constructor(
+    private deviceService: DeviceService,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit() {
     this.loadDevices();
@@ -57,7 +60,7 @@ export class AppComponent implements OnInit {
       error: (err) => {
         console.error('Chyba pri načítaní:', err);
         this.isLoading = false;
-      }
+      },
     });
   }
 
@@ -71,14 +74,14 @@ export class AppComponent implements OnInit {
 
   openAddDialog() {
     const dialogRef = this.dialog.open(AddDeviceDialogComponent, {
-      width: '400px'
+      width: '400px',
     });
 
     dialogRef.afterClosed().subscribe((result: Device | undefined) => {
       if (result) {
         this.deviceService.addDevice(result).subscribe({
           next: () => this.loadDevices(),
-          error: (err) => console.error('Chyba pri ukladaní:', err)
+          error: (err) => console.error('Chyba pri ukladaní:', err),
         });
       }
     });
@@ -87,16 +90,26 @@ export class AppComponent implements OnInit {
   openEditDialog(device: Device) {
     const dialogRef = this.dialog.open(AddDeviceDialogComponent, {
       width: '400px',
-      data: device
+      data: device,
     });
 
     dialogRef.afterClosed().subscribe((result: Device | undefined) => {
       if (result && result.id) {
         this.deviceService.updateDevice(result.id, result).subscribe({
           next: () => this.loadDevices(),
-          error: (err) => console.error('Chyba pri aktualizácii:', err)
+          error: (err) => console.error('Chyba pri aktualizácii:', err),
         });
       }
     });
+  }
+
+  get totalDevices(): number {
+    return this.devices.length;
+  }
+  get onlineDevices(): number {
+    return this.devices.filter((d) => d.status === 'ONLINE').length;
+  }
+  get maintenanceDevices(): number {
+    return this.devices.filter((d) => d.status === 'MAINTENANCE').length;
   }
 }

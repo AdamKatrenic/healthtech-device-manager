@@ -1,74 +1,144 @@
-/* Priestor medzi nadpisom a okrajom */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+/* Hlavný kontajner, ktorý drží celú plochu pod toolbarom */
+.dashboard-container {
+  padding: 30px;
+  background-color: #f4f7f9; /* Svetlosivé pozadie, aby biele karty vynikli */
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Medzera medzi kartami a tabuľkou */
 }
 
-/* Odsadenie v hornej lište (Toolbar) */
+/* Štýl pre hornú lištu */
+.main-toolbar {
+  background: #1a237e !important; /* Elegantná tmavomodrá */
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
 .spacer {
   flex: 1 1 auto;
 }
 
-/* Tabuľka - pridáme tieň a zaoblenie */
-table {
-  margin-top: 20px;
-  border-radius: 8px;
-  overflow: hidden;
+/* GRID SYSTÉM PRE KARTY */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Presne 3 stĺpce vedľa seba */
+  gap: 20px;
+  width: 100%;
 }
 
-/* Štýlovanie statusových odznakov (Badges) */
-.status-badge {
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  display: inline-block;
-  min-width: 80px;
-  text-align: center;
+/* Jednotlivé karty */
+.stat-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border: 1px solid #e0e6ed;
+  transition: all 0.3s ease;
 
-  /* Farby podľa stavu zariadenia */
-  &.online {
-    background-color: #e8f5e9;
-    color: #2e7d32;
-    border: 1px solid #c8e6c9;
-  }
-
-  &.offline {
-    background-color: #ffebee;
-    color: #c62828;
-    border: 1px solid #ffcdd2;
-  }
-
-  &.maintenance {
-    background-color: #fff3e0;
-    color: #ef6c00;
-    border: 1px solid #ffe0b2;
-  }
-}
-
-/* Zvýraznenie riadku pri prejdení myšou */
-tr.mat-mdc-row:hover {
-  background-color: #f0f4f8;
-  cursor: pointer;
-}
-
-.mat-column-actions {
-  text-align: right;
-  width: 100px;
-}
-
-tr.mat-mdc-row {
-  transition: background-color 0.2s ease;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.03) !important;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  }
+
+  .stat-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+
+    mat-icon {
+      color: white;
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+    }
+
+    &.total { background: linear-gradient(135deg, #3f51b5, #5c6bc0); }
+    &.online { background: linear-gradient(135deg, #43a047, #66bb6a); }
+    &.maintenance { background: linear-gradient(135deg, #f57c00, #ff9800); }
+  }
+
+  .stat-label {
+    color: #64748b;
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .stat-value {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e293b;
   }
 }
 
-// Uprav toolbar pre lepší kontrast
-mat-toolbar {
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  background: linear-gradient(90deg, #003e5c 0%, #006b8d 100%) !important; // Siemens-like gradient
+/* SEKCIA S TABUĽKOU */
+.table-section {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e0e6ed;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+
+  .table-header {
+    padding: 20px 24px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f1f5f9;
+    
+    h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #334155;
+    }
+  }
+}
+
+/* Úpravy pre Angular Material Tabuľku */
+table {
+  width: 100%;
+}
+
+.mat-mdc-header-cell {
+  background-color: #f8fafc !important;
+  color: #64748b !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  padding: 16px !important;
+}
+
+.mat-mdc-cell {
+  padding: 16px !important;
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* Štýly pre ID a Status (aby to vyzeralo k svetu) */
+.id-tag {
+  background: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: monospace;
+  color: #475569;
+  font-weight: 600;
+}
+
+/* Responzivita - ak zmenšíš okno, karty pôjdu pod seba */
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
 }
