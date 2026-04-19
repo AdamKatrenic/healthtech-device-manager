@@ -142,3 +142,28 @@ table {
     grid-template-columns: 1fr;
   }
 }
+
+.search-field {
+  width: 300px;
+  margin-bottom: -15px; // Vyrovnanie v headeri
+  
+  .mat-mdc-form-field-subscript-wrapper { display: none; } // Schováme prázdne miesto pod inputom
+}
+
+/* Štýly pre notifikácie (Snackbars) */
+.style-success {
+  background-color: #2e7d32 !important;
+  color: white !important;
+}
+
+.style-error {
+  background-color: #d32f2f !important;
+  color: white !important;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px !important;
+}

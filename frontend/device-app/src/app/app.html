@@ -1,6 +1,8 @@
 <mat-toolbar color="primary" class="main-toolbar">
   <mat-icon>dashboard</mat-icon>
-  <span style="margin-left: 10px; font-weight: 500; letter-spacing: 1px;">MedTrack Pro — Ecosystem Control</span>
+  <span style="margin-left: 10px; font-weight: 500; letter-spacing: 1px"
+    >MedTrack Pro — Ecosystem Control</span
+  >
   <span class="spacer"></span>
   <button mat-flat-button class="add-btn" (click)="openAddDialog()">
     <mat-icon>add</mat-icon> REGISTER ASSET
@@ -10,7 +12,6 @@
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 
 <div class="dashboard-container">
-  
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-icon total"><mat-icon>inventory_2</mat-icon></div>
@@ -40,60 +41,78 @@
   <div class="table-section mat-elevation-z3">
     <div class="table-header">
       <h2>Active Medical Inventory</h2>
+
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search assets...</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. MRI or SN123..." #input />
+      </mat-form-field>
     </div>
 
     <table mat-table [dataSource]="devices">
-
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let element"> <span class="id-tag">#{{element.id}}</span> </td>
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element">
+          <span class="id-tag">#{{ element.id }}</span>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element" style="font-weight: 500;"> {{element.name}} </td>
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element" style="font-weight: 500">{{ element.name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="modelName">
-        <th mat-header-cell *matHeaderCellDef> Model </th>
-        <td mat-cell *matCellDef="let element"> {{element.modelName}} </td>
+        <th mat-header-cell *matHeaderCellDef>Model</th>
+        <td mat-cell *matCellDef="let element">{{ element.modelName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="serialNumber">
-        <th mat-header-cell *matHeaderCellDef> Serial No. </th>
-        <td mat-cell *matCellDef="let element"> <code>{{element.serialNumber}}</code> </td>
+        <th mat-header-cell *matHeaderCellDef>Serial No.</th>
+        <td mat-cell *matCellDef="let element">
+          <code>{{ element.serialNumber }}</code>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <th mat-header-cell *matHeaderCellDef>Status</th>
         <td mat-cell *matCellDef="let element">
           <span [class]="'status-badge ' + (element.status ? element.status.toLowerCase() : '')">
-            {{element.status}}
+            {{ element.status }}
           </span>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="primary" (click)="openEditDialog(element)" matTooltip="Edit Asset">
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="openEditDialog(element)"
+            matTooltip="Edit Asset"
+          >
             <mat-icon>edit</mat-icon>
           </button>
-          
-          <button mat-icon-button color="warn" (click)="deleteDevice(element.id!)" matTooltip="Delete Asset">
+
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="deleteDevice(element.id!)"
+            matTooltip="Delete Asset"
+          >
             <mat-icon>delete</mat-icon>
           </button>
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    
+
     <div *ngIf="devices.length === 0 && !isLoading" class="empty-state">
       <mat-icon>cloud_off</mat-icon>
       <p>No medical assets registered in the system.</p>
     </div>
   </div>
-
 </div>
