@@ -1,16 +1,16 @@
 /* Hlavný kontajner, ktorý drží celú plochu pod toolbarom */
 .dashboard-container {
   padding: 30px;
-  background-color: #f4f7f9; /* Svetlosivé pozadie, aby biele karty vynikli */
+  background-color: #f4f7f9;
   min-height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
-  gap: 25px; /* Medzera medzi kartami a tabuľkou */
+  gap: 25px;
 }
 
 /* Štýl pre hornú lištu */
 .main-toolbar {
-  background: #1a237e !important; /* Elegantná tmavomodrá */
+  background: #1a237e !important;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -24,12 +24,12 @@
 /* GRID SYSTÉM PRE KARTY */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Presne 3 stĺpce vedľa seba */
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   width: 100%;
 }
 
-/* Jednotlivé karty */
+/* Jednotlivé karty s tvojou animáciou */
 .stat-card {
   background: white;
   padding: 24px;
@@ -38,7 +38,7 @@
   align-items: center;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   border: 1px solid #e0e6ed;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
     transform: translateY(-5px);
@@ -92,10 +92,13 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 
   .table-header {
-    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
     background-color: #ffffff;
     border-bottom: 1px solid #f1f5f9;
-    
+
     h2 {
       margin: 0;
       font-size: 1.1rem;
@@ -105,7 +108,12 @@
   }
 }
 
-/* Úpravy pre Angular Material Tabuľku */
+.header-title-group {
+  display: flex;
+  align-items: center;
+}
+
+/* Úpravy pre tabuľku */
 table {
   width: 100%;
 }
@@ -126,7 +134,41 @@ table {
   border-bottom: 1px solid #f1f5f9;
 }
 
-/* Štýly pre ID a Status (aby to vyzeralo k svetu) */
+/* Hover efekt na riadky tabuľky */
+.mat-mdc-row:hover {
+  background-color: #f1f5f9 !important;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+/* Badge pre statusy */
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &.online {
+    background-color: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+  }
+
+  &.maintenance {
+    background-color: #fef9c3;
+    color: #854d0e;
+    border: 1px solid #fef08a;
+  }
+
+  &.offline {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+  }
+}
+
 .id-tag {
   background: #f1f5f9;
   padding: 4px 8px;
@@ -136,34 +178,61 @@ table {
   font-weight: 600;
 }
 
-/* Responzivita - ak zmenšíš okno, karty pôjdu pod seba */
-@media (max-width: 900px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 .search-field {
   width: 300px;
-  margin-bottom: -15px; // Vyrovnanie v headeri
   
-  .mat-mdc-form-field-subscript-wrapper { display: none; } // Schováme prázdne miesto pod inputom
+  /* Schováme prázdne miesto pod inputom, aby header nebol zbytočne vysoký */
+  .mat-mdc-form-field-subscript-wrapper { display: none; } 
 }
 
-/* Štýly pre notifikácie (Snackbars) */
-.style-success {
+.mat-mdc-paginator {
+  border-top: 1px solid #f1f5f9;
+  background-color: #f8fafc;
+}
+
+/* Notifikácie */
+::ng-deep .style-success {
   background-color: #2e7d32 !important;
   color: white !important;
 }
 
-.style-error {
+::ng-deep .style-error {
   background-color: #d32f2f !important;
   color: white !important;
 }
 
-.table-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 24px !important;
+/* Responzivita */
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .search-field {
+    width: 100%;
+  }
+}
+
+.status-filter-group {
+  margin-left: 20px;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+  mat-button-toggle {
+    background-color: #f1f5f9;
+    color: #64748b;
+    font-weight: 500;
+    font-size: 12px;
+    border: none;
+
+    &.mat-button-toggle-checked {
+      background-color: #1a237e !important; // Naša tmavomodrá
+      color: white !important;
+    }
+  }
 }
