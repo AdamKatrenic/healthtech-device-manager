@@ -1,59 +1,59 @@
-# DeviceApp
+# 🏥 MedTrack Pro — Enterprise Medical Asset Management System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.10.
+**MedTrack Pro** is a modern full-stack application designed for healthcare facilities to manage, track, and audit medical equipment in real-time. Built with a focus on data integrity and intuitive UX, it bridges the gap between hospital administration and technical maintenance.
 
-## Development server
+![Status](https://img.shields.io/badge/Status-Production--Ready-success?style=for-the-badge)
+![Year](https://img.shields.io/badge/Year-2026-blue?style=for-the-badge)
 
-To start a local development server, run:
+## 🌟 Key Features
 
+* **Intelligent Dashboard:** Instant visualization of asset distribution (Total, Operational, and Maintenance required).
+* **Dynamic Inventory Table:** A high-performance data grid featuring server-side integration and client-side pagination.
+* **Smart Filtering System:** Multi-layered filtering allowing users to combine full-text search with status-based toggles (Online, Maintenance, Offline).
+* **Professional PDF Reporting:** One-click generation of localized inventory reports using `jsPDF`, tailored for technical audits.
+* **Secure CRUD Operations:** Comprehensive lifecycle management for medical devices with data protection triggers (Confirmation Dialogs).
+* **Modern UI/UX:** Built with Angular Material, featuring responsive layouts, interactive status badges, and real-time event notifications (Snackbars).
+
+## 🛠️ Technology Stack
+
+### Frontend
+- **Framework:** Angular 18+ (Standalone Architecture)
+- **UI Components:** Angular Material
+- **Reporting:** jsPDF & jspdf-autotable
+- **Styling:** SCSS (Advanced Grid & Flexbox)
+
+### Backend
+- **Framework:** Spring Boot 3.x
+- **Language:** Java 17
+- **Database:** H2 Database (In-memory for seamless demonstration)
+- **Architecture:** RESTful API with clean separation of concerns (Controller-Service-Repository pattern)
+
+## 🚀 Getting Started
+
+### 1. Prerequisites
+- **JDK 17** or higher
+- **Node.js** v18+ & **Angular CLI**
+
+### 2. Backend Setup
 ```bash
+cd backend
+./mvnw spring-boot:run
+The API will be accessible at http://localhost:8080.
+
+3. Frontend Setup
+Bash
+cd frontend/device-app
+npm install
 ng serve
-```
+Open your browser at http://localhost:4200.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+📈 Roadmap 2026
+[ ] Data Visualization: Integration of Chart.js for graphical maintenance trends.
 
-## Code scaffolding
+[ ] Containerization: Docker Compose setup for easy deployment.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+[ ] Authentication: Role-based access control (RBAC) via Keycloak.
 
-```bash
-ng generate component component-name
-```
+Developer: Adam Katrenič
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This project serves as a showcase of modern Full-Stack development, solving real-world domain challenges in the HealthTech sector.
