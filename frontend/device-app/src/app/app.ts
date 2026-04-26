@@ -101,16 +101,22 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   deleteDevice(id: number) {
-    if (confirm('Are you sure you want to delete this asset?')) {
-      this.deviceService.deleteDevice(id).subscribe({
-        next: () => {
-          this.loadDevices();
-          this.showNotification('Asset deleted successfully');
-        },
-        error: () => this.showNotification('Error deleting asset', 'error')
-      });
-    }
+  const confirmDelete = confirm('Are you sure you want to decommission this asset? This action cannot be undone.');
+
+  if (confirmDelete) {
+    this.isLoading = true;
+    this.deviceService.deleteDevice(id).subscribe({
+      next: () => {
+        this.showNotification('Asset successfully removed from ecosystem', 'success');
+        this.loadDevices(); // Refresh dát
+      },
+      error: () => {
+        this.showNotification('Error: Could not delete asset. Internal server error.', 'error');
+        this.isLoading = false;
+      }
+    });
   }
+}
 
   openAddDialog() {
     const dialogRef = this.dialog.open(AddDeviceDialogComponent, { width: '400px' });
